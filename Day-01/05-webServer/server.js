@@ -13,3 +13,10 @@ var server = http.createServer(function(req, res){
 server.listen(8080);
 
 console.log('server listening on 8080!!');
+
+/*
+1. use streams
+2. check for the existence of the file, if not 
+	res.statusCode = 404;
+	res.end()
+*/
