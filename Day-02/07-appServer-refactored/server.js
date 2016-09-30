@@ -1,5 +1,6 @@
 var http = require('http'),
-	path = require('path');
+	path = require('path'),
+	chalk = require('chalk');
 	
 
 var app = require('./app'),
@@ -11,7 +12,7 @@ var app = require('./app'),
 
 app.use(dataParser);
 app.use(function(req, res, next){
-	console.log(req.method + ' - \t' + req.urlData.pathname);
+	console.log(chalk.red(req.method) + ' - \t' + chalk.blue(req.urlData.pathname));
 	next();
 });
 app.use(serveStatic(path.join(__dirname, 'public')));
@@ -21,4 +22,4 @@ app.use(serveNotFound);
 
 http.createServer(app).listen(8080);
 
-console.log('server listening on 8080!!');
+console.log('server listening on port - 8080!!');
