@@ -1,4 +1,5 @@
-var http = require('http');
+var http = require('http'),
+	path = require('path');
 	
 
 var app = require('./app'),
@@ -13,7 +14,7 @@ app.use(function(req, res, next){
 	console.log(req.method + ' - \t' + req.urlData.pathname);
 	next();
 });
-app.use(serveStatic);
+app.use(serveStatic(path.join(__dirname, 'public')));
 app.use(serveCalculator);
 app.use(serveEmployees);
 app.use(serveNotFound);
