@@ -1,7 +1,7 @@
 
 
-module.exports = function(res){
-	console.log('[serveNotFound] serving 404');
+module.exports = function(req, res, next){
 	res.statusCode = 404;
 	res.end();
+	next();
 }

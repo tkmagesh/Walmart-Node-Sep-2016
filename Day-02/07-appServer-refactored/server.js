@@ -1,26 +1,23 @@
 var http = require('http');
 	
 
-var dataParser = require('./dataParser'),
+var app = require('./app'),
+	dataParser = require('./dataParser'),
 	serveStatic = require('./serveStatic'),
 	serveCalculator = require('./serveCalculator'),
-	serveNotFound = require('./serveNotFound');
+	serveNotFound = require('./serveNotFound'),
+	serveEmployees = require('./serveEmployees');
 
-
-
-var server = http.createServer(function(req, res){
-	dataParser(req);	
-	serveStatic(req, res);
-	serveCalculator(req, res);
-	serveNotFound(res);
+app.use(dataParser);
+app.use(function(req, res, next){
+	console.log(req.method + ' - \t' + req.urlData.pathname);
+	next();
 });
+app.use(serveStatic);
+app.use(serveCalculator);
+app.use(serveEmployees);
+app.use(serveNotFound);
 
-server.listen(8080);
+http.createServer(app).listen(8080);
 
 console.log('server listening on 8080!!');
-
-
-//dataParser
-//serveStatic
-//serveCalculator
-//serveNotFound
